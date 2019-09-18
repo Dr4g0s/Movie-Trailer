@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Movies{% endblock  %}
+
+
+{% block content %}
+	<main class="content">
+		<section class="centered">
+			{% if movie_category %}
+				<h3>{{ movie_category }} Movies</h3>
+			{% elif movie_language %}
+				<h3>Language: {{ movie_language }}</h3>
+			{% elif movie_year %}
+					<h3>Year: {{ movie_year }}</h3>
+			{% elif movie_cast %}
+					<h3>Cast: {{ movie_cast }}</h3>
+			{% elif search_result or result %}
+					<h3>Search Result:</h3>
+			{% else %}
+				<h3>Most Watched Movies</h3>
+			{% endif %}
+			<div class="movies">
+				{% for movie in object_list %}
+					<div class="mov">
+					<a href="{{ movie.get_absolute_url }}">
+						<img src="{{ movie.image.url }}">
+						<h2 class="movietitle">{{ movie.title }}</h2>
+					</a>
+				</div>
+				{% empty %}
+					<br><br><br><br><br>
+					{% if result %}
+						<h2>No related movies for your search.</h2>
+					{% else %}
+						<h2>There are no movies in this section.</h2>
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% if is_paginated %}
+				<nav class="pagination">
+					<ul>
+						{% if page_obj.has_previous %}
+							<li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+						{% else %}
+						<li class="disabled"></li>
+						{% endif %}
+						{% for page in page_obj.paginator.page_range %}
+							{% if page_obj.number == page %}
+								<li><a href="?page={{ page }}" class="menuactive">{{ page }}</a></li>
+							{% else %}
+								<li><a href="?page={{ page }}">{{ page }}</a></li>
+							{% endif %}
+						{% endfor %}
+						{% if page_obj.has_next %}
+							<li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+			{% endif %}
+		</section>
+	</main>
+{% endblock  %}

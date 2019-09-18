@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block title %}Contact Form{% endblock %}
+
+
+{% block content %}
+  <main class="content">
+    <section class="centered">
+      {% if message %}
+        {% if message == 'success' %}
+          <span class="success">Message sent succesfully</span>
+        {% elif message == 'error' %}
+          <span class="error">Failed sending message</span>
+        {% endif %}
+      {% endif %}
+      <h3>Contact</h3>
+      <div class="contact">
+        <form id="myForm" action="." method="post">
+          {% csrf_token %}
+          <label for="name">Name:</label>
+          {{ form.name }}
+
+          <label for="email">Email:</label>
+          {{ form.email }}
+
+          <label for="message">Message:</label>
+          {{ form.message }}
+
+          <input type="submit" name="submit" value="SEND">
+        </form>
+      </div>
+    </div>
+  </section>
+{% endblock  %}

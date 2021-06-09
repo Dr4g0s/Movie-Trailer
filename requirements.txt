@@ -3,7 +3,7 @@ chardet==3.0.4
 cmdy==0.1.9
 colorama==0.4.1
 completions==0.0.7
-Django==2.2.5
+Django==2.2.22
 django-embed-video==1.3
 django-multiselectfield==0.1.8
 django-taggit==1.1.0
